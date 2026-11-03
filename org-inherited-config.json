@@ -5,10 +5,6 @@
     "config:recommended",
     "helpers:pinGitHubActionDigestsToSemver"
   ],
-  "timezone": "Asia/Tokyo",
-  "schedule": [
-    "* 0-8 * * 6"
-  ],
   "labels": [
     "dependencies"
   ],
@@ -18,12 +14,8 @@
   "minimumReleaseAgeBehaviour": "timestamp-optional",
   "osvVulnerabilityAlerts": true,
   "vulnerabilityAlerts": {
-    "labels": [
-      "dependencies",
+    "addLabels": [
       "security"
-    ],
-    "schedule": [
-      "at any time"
     ],
     "minimumReleaseAge": null
   },
