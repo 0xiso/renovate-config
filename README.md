@@ -1,23 +1,31 @@
 # renovate-config
 
-Shared [Renovate](https://docs.renovatebot.com/) preset for 0xiso repositories.
+Shared [Renovate](https://docs.renovatebot.com/) settings for 0xiso
+repositories, applied through the Mend Renovate app's
+[inherited config](https://docs.renovatebot.com/mend-hosted/hosted-apps-config/):
+`org-inherited-config.json` in this repository is applied to every repository
+the app can access, before that repository's own config.
 
 ## Use
 
-In a repository's Renovate config (`renovate.json`, `.github/renovate.json5`, ...):
+Nothing to add in each repository. A repository's own `renovate.json` (or
+`.github/renovate.json5`, ...) only holds what is specific to it, and does
+not need to extend anything: the settings below already apply.
 
-```json
-{
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["github>0xiso/renovate-config"]
-}
-```
+Requirements:
 
-Add repository-specific rules after it. Renovate's onboarding PR suggests this
-preset automatically for new repositories, because this repository exists.
-The Renovate app must have access to this repository as well.
+- The Renovate app has access to this repository.
+- Mend enables inheritance when it sees a commit to `org-inherited-config.json`.
+  If it does not take effect (e.g. the file was committed before the app could
+  see this repository), push a new commit to it.
+- The Mend docs describe this for organizations. 0xiso is a personal account,
+  so check it works: a repository's Dependency Dashboard and the
+  [Mend job log](https://developer.mend.io/) show the effective config
+  (e.g. the Saturday schedule). If it does not apply, rename the file back to
+  `default.json` and add `"extends": ["github>0xiso/renovate-config"]` to each
+  repository instead.
 
-## What `default.json` does
+## What `org-inherited-config.json` does
 
 | Setting | Effect | Why |
 |---|---|---|
@@ -42,5 +50,5 @@ Not set on purpose:
 ## Validate
 
 ```bash
-npx --yes --package renovate@44.160.1 -- renovate-config-validator --strict default.json
+npx --yes --package renovate@44.160.1 -- renovate-config-validator --strict org-inherited-config.json
 ```
