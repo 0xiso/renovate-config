@@ -1,0 +1,50 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Inherited by every 0xiso repository the Mend Renovate app can access. See README.md.",
+  "extends": [
+    "config:recommended",
+    "helpers:pinGitHubActionDigestsToSemver"
+  ],
+  "labels": [
+    "dependencies"
+  ],
+  "rebaseWhen": "conflicted",
+  "configMigration": true,
+  "minimumReleaseAge": "3 days",
+  "minimumReleaseAgeBehaviour": "timestamp-optional",
+  "osvVulnerabilityAlerts": true,
+  "vulnerabilityAlerts": {
+    "addLabels": [
+      "security"
+    ],
+    "minimumReleaseAge": null
+  },
+  "packageRules": [
+    {
+      "description": "Batch non-major action updates into one PR.",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "matchDepTypes": [
+        "action"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "digest",
+        "pinDigest"
+      ],
+      "groupName": "GitHub Actions"
+    },
+    {
+      "description": "Runner image upgrades change every job's environment: keep them apart from action updates.",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "matchDepTypes": [
+        "github-runner"
+      ],
+      "groupName": "GitHub Actions runner"
+    }
+  ]
+}
