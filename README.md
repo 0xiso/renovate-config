@@ -8,9 +8,15 @@ the app can access, before that repository's own config.
 
 ## Use
 
-Nothing to add in each repository. A repository's own `renovate.json` (or
-`.github/renovate.json5`, ...) only holds what is specific to it, and does
-not need to extend anything: the settings below already apply.
+Nothing to add in each repository: as soon as the Renovate app can access a
+repository, Renovate runs there with the settings below (`onboarding: false`,
+`requireConfig: optional`), without an onboarding PR or a config file. A
+repository that needs more adds its own `renovate.json` (or
+`.github/renovate.json5`, ...) with only what is specific to it; it does not
+need to extend anything.
+
+Every repository the app can access gets dependency PRs, so give the app
+access only to repositories that should be updated.
 
 Requirements:
 
@@ -29,6 +35,7 @@ Requirements:
 
 | Setting | Effect | Why |
 |---|---|---|
+| `onboarding: false`, `requireConfig: optional` | No onboarding PR; repositories without a config file are processed with this config | Settings live here, not in each repository |
 | `config:recommended` | Renovate's recommended base | |
 | `helpers:pinGitHubActionDigestsToSemver` | Actions referenced by tag (`@v7`) are pinned to a commit SHA, with a full `# v7.0.1` comment | A tag can be moved to other code (e.g. a hijacked maintainer account); a SHA cannot |
 | `minimumReleaseAge: 3 days` | Versions published less than 3 days ago are not proposed (datasources without timestamps are not held back) | Hijacked or broken releases are usually caught and pulled within days |

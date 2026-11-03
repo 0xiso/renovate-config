@@ -1,6 +1,8 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "description": "Inherited by every 0xiso repository the Mend Renovate app can access. See README.md.",
+  "onboarding": false,
+  "requireConfig": "optional",
   "extends": [
     "config:recommended",
     "helpers:pinGitHubActionDigestsToSemver"
